@@ -7,6 +7,8 @@ platform : ubuntu@12.04
 keywords:
   - nodejs
   - bundle
+packages:
+  - ruby@2.0.0-p353
 script: |
   bundle update
   bundle install
