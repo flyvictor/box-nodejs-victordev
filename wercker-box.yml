@@ -1,38 +1,26 @@
-name : nodejs
-version : 1.3.0
-description: Latest NodeJS version
-inherits : wercker/ubuntu12.04-nodejs0.10@1.5.0
+name : nodejs-victordev
+version : 1.0.0
+description: Inherits latest NodeJS version
+inherits : wercker/nodejs@1.3.0
 type : main
 platform : ubuntu@12.04
 keywords:
   - nodejs
-box-detect:
-  priority : 1000
-  version :
-  detect:
-    - files:
-      - package.json
+  - bundle
+script: |
+  # Install bundler
+  if ! type bundle &> /dev/null; then
+      echo 'bundler gem not found, starting installing it';
+      sudo gem install bundler --no-rdoc --no-ri --version '>=1.5.2';
 
-default-build:
-  nodejs:
-    priority : 50
-    detect:
-      - default: true
-    text-to-append: |
-      # Build definition
-      build:
-        # The steps that will be executed on build
-        steps:
-          # A step that executes `npm install` command
-          - npm-install
-          # A step that executes `npm test` command
-          - npm-test
+      if [[ $? -ne 0 ]]; then
+          echo 'bundler gem installation failed';
+      else
+          echo 'finished bundler gem installation';
+      fi
+  else
+      echo 'bundler gem is available, and will not be installed by this step';
+  fi
 
-          # A custom script step, name value is used in the UI
-          # and the code value contains the command that get executed
-          - script:
-              name: echo nodejs information
-              code: |
-                echo "node version $(node -v) running"
-                echo "npm version $(npm -v) running"
-
+  bundle update
+  bundle install
