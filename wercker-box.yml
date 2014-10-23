@@ -8,19 +8,5 @@ keywords:
   - nodejs
   - bundle
 script: |
-  # Install bundler
-  if ! type bundle &> /dev/null; then
-      echo 'bundler gem not found, starting installing it';
-      sudo gem install bundler --no-rdoc --no-ri --version '>=1.5.2';
-
-      if [[ $? -ne 0 ]]; then
-          echo 'bundler gem installation failed';
-      else
-          echo 'finished bundler gem installation';
-      fi
-  else
-      echo 'bundler gem is available, and will not be installed by this step';
-  fi
-
   bundle update
   bundle install
