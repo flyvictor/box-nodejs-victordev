@@ -14,5 +14,10 @@ script: |
   # Install bundler
   sudo gem install bundler --no-rdoc --no-ri --version '>=1.5.2';
 
+  export PATH="$PATH:/cache/bundle-install"
+
   bundle update
   bundle install
+
+  #Test
+  bundle exec rake
