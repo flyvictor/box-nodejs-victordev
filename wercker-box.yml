@@ -10,5 +10,15 @@ keywords:
 packages:
   - ruby@2.0.0-p353
 script: |
+
+  # Install bundler
+  sudo gem install bundler --no-rdoc --no-ri --version '>=1.5.2';
+
+  if [[ $? -ne 0 ]]; then
+      echo 'bundler gem installation failed';
+  else
+      echo 'finished bundler gem installation';
+  fi
+  
   bundle update
   bundle install
