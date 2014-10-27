@@ -21,3 +21,7 @@ script: |
 
   #Test
   bundle exec rake -V
+
+  #Archive bundle for later use
+  mkdir $HOME/bundle_cache
+  mv /cache/bundle-install/* $HOME/bundle_cache
