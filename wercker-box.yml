@@ -6,22 +6,41 @@ type : main
 platform : ubuntu@12.04
 keywords:
   - nodejs
+  - node
+  - firefox
   - bundle
 packages:
   - ruby@2.0.0-p353
+  - node@10.x
 script: |
 
-  # Install bundler
-  sudo gem install bundler --no-rdoc --no-ri --version '>=1.5.2';
-
-  export PATH="$PATH:/cache/bundle-install"
-
-  bundle update
-  bundle install
-
-  #Test
-  bundle exec rake -V
-
-  #Archive bundle for later use
-  mkdir $HOME/bundle_cache
-  mv /cache/bundle-install/* $HOME/bundle_cache
+  sudo apt-get update
+  
+  # Install Java
+  sudo apt-get install python-software-properties curl wget -y
+  sudo add-apt-repository ppa:webupd8team/java -y
+  sudo apt-get update
+  echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+  sudo apt-get install oracle-java7-installer -y
+  # Set java environment variables
+  sudo apt-get install oracle-java7-set-default 
+  
+  # Install and setup Xvfb
+  sudo apt-get install xvfb -y
+  export DISPLAY=:99.0
+  sudo start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset
+  sleep 5
+  
+  # Globals
+  sudo apt-get install -y firefox build-essential curl wget libfreetype6-dev libfontconfig1-dev xvfb x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic x11-apps
+  # phantomjs
+  wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
+  tar xfj phantomjs-1.9.2-linux-x86_64.tar.bz2
+  sudo cp phantomjs-1.9.2-linux-x86_64/bin/phantomjs /usr/local/bin
+  # node packages
+  sudo npm install -g grunt-cli
+  sudo npm install -g mocha
+env:
+  NODE_ENV: test
+  DISPLAY: ":99.0"
