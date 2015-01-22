@@ -25,6 +25,12 @@ script: |
   sudo apt-get install oracle-java7-installer -y
   # Set java environment variables
   sudo apt-get install oracle-java7-set-default 
+
+  # Install Ansible
+  sudo apt-get install python-software-properties
+  sudo add-apt-repository ppa:ansible/ansible -y
+  sudo apt-get update
+  sudo apt-get install -y ansible
   
   # Install and setup Xvfb
   sudo apt-get install xvfb -y
