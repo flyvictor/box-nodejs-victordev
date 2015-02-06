@@ -32,11 +32,11 @@ script: |
   echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
   echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
   sudo apt-get install oracle-java7-installer -y
-  # Set java environment variables
-<<<<<<< HEAD
-  sudo apt-get install oracle-java7-set-default
 
-  # Install Rails
+  # Set java environment variables
+  sudo apt-get install oracle-java7-set-default 
+
+  # Install Ruby
   sudo apt-get install git zlib1g-dev libreadline-dev libqtwebkit-dev curl -y
   sudo apt-get remove ruby1.9.1
   gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
@@ -57,15 +57,12 @@ script: |
   echo "gem: --no-rdoc --no-ri" >> $HOME/.gemrc
   echo "RAILS_ENV=test" | sudo tee -a /etc/environment
   echo "RACK_ENV=test" | sudo tee -a /etc/environment
-=======
-  sudo apt-get install oracle-java7-set-default 
 
   # Install Ansible
   sudo apt-get install python-software-properties
   sudo add-apt-repository ppa:ansible/ansible -y
   sudo apt-get update
   sudo apt-get install -y ansible
->>>>>>> 2f580f3f8874257708cdcf260dfa645e62194bc5
   
   # Install and setup Xvfb
   sudo apt-get install xvfb -y
