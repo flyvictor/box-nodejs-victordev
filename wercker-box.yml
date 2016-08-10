@@ -80,9 +80,10 @@ script: |
   sudo npm install -g grunt-cli
   sudo npm install -g mocha
 
-  ansible --version
   node -v
   npm -v
+  ansible --version
+  ansible-playbook --version
 
 env:
   NODE_ENV: test
