@@ -79,6 +79,11 @@ script: |
   # node packages
   sudo npm install -g grunt-cli
   sudo npm install -g mocha
+
+  ansible --version
+  node -v
+  npm -v
+
 env:
   NODE_ENV: test
   DISPLAY: ":99.0"
